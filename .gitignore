@@ -25,6 +25,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# Ignore large models
+yolov8x.pt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
