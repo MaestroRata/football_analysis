@@ -27,6 +27,7 @@ Temporary Items
 
 # Ignore large models
 yolov8x.pt
+runs/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
