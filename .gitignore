@@ -25,9 +25,11 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# Ignore large models
+# Ignore large files
 yolov8x.pt
 runs/
+datasets/
+models/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
