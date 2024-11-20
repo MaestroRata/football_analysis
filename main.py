@@ -24,9 +24,12 @@ def main():
         print("Error: Tracking failed or stub file could not be loaded.")
         return
 
+    # Draw Object Tracks
+    output_video_frames = tracker.draw_annotations(video_frames, tracks)
+
     # Save Video
-    print("Overlaying tracks and saving video...")
-    save_video(video_frames, "output_videos/output_video.avi")
+    print("Saving video...")
+    save_video(output_video_frames, "output_videos/output_video.avi")
 
 
 if __name__ == "__main__":
