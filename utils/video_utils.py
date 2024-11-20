@@ -46,7 +46,7 @@ def save_video(output_video_frames, output_video_path):
     total_frames = len(output_video_frames)
     for i, frame in enumerate(output_video_frames):
         out.write(frame)
-        print(f"Saved frame {i + 1}/{total_frames}")
+        # print(f"Saved frame {i + 1}/{total_frames}")
 
     # Release the VideoWriter object
     out.release()
