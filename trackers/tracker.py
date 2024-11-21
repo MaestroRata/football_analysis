@@ -2,6 +2,7 @@ import os
 import pickle
 from ultralytics import YOLO
 import supervision as sv
+import numpy as np
 import sys
 import cv2
 
@@ -100,7 +101,7 @@ class Tracker:
 
         # Args:
         #    frame (numpy.ndarray): The current video frame.
-        #    bbox (list): Bounding box [x_min, y_min, x_max, y_max].
+        #    bbox (list): Bounding box [x1, y1, x2, y2].
         #    color (tuple): Color of the ellipse (B, G, R).
         #    track_id (int): Track ID for the player.
 
@@ -158,6 +159,27 @@ class Tracker:
 
         return frame
 
+    def draw_triangle(self, frame, bbox, color):
+        # Draws an ellipse at the bottom center of the bounding box.
+
+        # Args:
+        #    frame (numpy.ndarray): The current video frame.
+        #    bbox (list): Bounding box [x1, y1, x2, y2].
+        #    color (tuple): Color of the triangle (B, G, R).
+
+        # Returns:
+        #    numpy.ndarray: The updated frame with the triangle drawn.
+        y = int(bbox[1])
+        x, _ = get_bbox_center(bbox)
+
+        # Define geometry by selecting the triangle points,
+        # base is the point at the top center of the triangle
+        triangle_points = np.array([[x, y], [x - 10, y - 20], [x + 10, y - 20]])
+        cv2.drawContours(frame, [triangle_points], 0, color, cv2.FILLED)
+        cv2.drawContours(frame, [triangle_points], 0, (0, 0, 0), 2)
+
+        return frame
+
     def draw_annotations(self, video_frames, tracks):
         # Annotates video frames with tracking information.
 
@@ -186,6 +208,11 @@ class Tracker:
             for _, referee in referee_dict.items():
                 bbox = referee["bbox"]
                 frame = self.draw_ellipse(frame, bbox, (0, 255, 255))
+
+            # Draw ball
+            for _, ball in ball_dict.items():
+                bbox = ball["bbox"]
+                frame = self.draw_triangle(frame, bbox, (0, 255, 0))
 
             output_video_frames.append(frame)
 

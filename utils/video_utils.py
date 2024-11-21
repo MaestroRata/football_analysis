@@ -51,3 +51,17 @@ def save_video(output_video_frames, output_video_path):
     # Release the VideoWriter object
     out.release()
     print(f"Video saved to {output_video_path}")
+
+
+def save_cropped_image(frame, bbox, output_path):
+    # Save cropped image from a video frame
+    # Crop bbox from frame
+    cropped_image = frame[int(bbox[1]) : int(bbox[3]), int(bbox[0]) : int(bbox[2])]
+    try:
+        # Save the cropped bbox
+        cv2.imwrite(output_path, cropped_image)
+        print(f"Cropped image saved to {output_path}")
+        return True
+    except Exception as e:
+        print(f"Error saving cropped image: {e}")
+        return False
