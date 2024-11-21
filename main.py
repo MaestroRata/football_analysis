@@ -1,5 +1,5 @@
 from utils import read_video, save_video, save_cropped_image
-from trackers import Tracker
+from classes import Tracker
 import cv2
 
 
