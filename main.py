@@ -1,5 +1,5 @@
 from utils import read_video, save_video, save_cropped_image
-from classes import Tracker
+from classes import Tracker, TeamAssigner
 
 
 def main():
@@ -35,6 +35,22 @@ def main():
     #     else:
     #         print("Error saving cropped image")
     #     break
+
+    # Assign Player Teams
+    print("Assigning team colors...")
+    team_assigner = TeamAssigner()
+    team_assigner.assign_team_color(video_frames[0], tracks["players"][0])
+
+    print("Assigning player teams...")
+    for i, player_track in enumerate(tracks["players"]):
+        for player_id, track in player_track.items():
+            team = team_assigner.get_player_team(
+                video_frames[i], track["bbox"], player_id
+            )
+            tracks["players"][i][player_id]["team"] = team
+            tracks["players"][i][player_id]["team_color"] = team_assigner.team_colors[
+                team
+            ]
 
     # Draw Object Tracks
     print("Drawing annotations...")

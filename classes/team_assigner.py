@@ -20,7 +20,7 @@ class TeamAssigner:
     def get_player_color(self, frame, bbox):
         # Get the color of the player jerseys from a given frame and player bbox
 
-        image = frame(int(bbox[1]), int(bbox[3]), int(bbox[0]), int(bbox[2]))
+        image = frame[int(bbox[1]) : int(bbox[3]), int(bbox[0]) : int(bbox[2]), :]
 
         # Take the top half of the image, because is mostly where the colors of the jersey will be
         top_half_image = image[0 : int(image.shape[0] / 2), :]
