@@ -24,6 +24,9 @@ def main():
         print("Error: Tracking failed or stub file could not be loaded.")
         return
 
+    # Interpolate Ball positions
+    tracks["ball"] = tracker.interpolate_ball_positions(tracks["ball"])
+
     # Save cropped image of a player
     # print("Saving cropped image...")
     # for _, player in tracks["players"][0].items():
